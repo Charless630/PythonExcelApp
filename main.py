@@ -1,6 +1,16 @@
 # Importing tkinter module
 import tkinter as tk
 from tkinter import ttk
+import openpyxl as xl
+
+# Function to load the data
+def load_data():
+    path = "people.xlsx"
+    workbook = xl.load_workbook(path)
+    sheet = workbook.active
+    
+    list_values = list(sheet.values)
+    print(list_values)
 
 # Function to toggle between the themes
 def toggle_mode():
@@ -84,6 +94,7 @@ treeview.column("Subscription", width=100)
 treeview.column("Employment", width=100)
 treeview.pack()
 treeScroll.config(command=treeview.yview)
+load_data()
 
 
 

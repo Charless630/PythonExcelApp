@@ -2,6 +2,13 @@
 import tkinter as tk
 from tkinter import ttk
 
+# Function to toggle between the themes
+def toggle_mode():
+    if mode_switch.instate(['selected']):
+        style.theme_use("forest-light")
+    else:
+        style.theme_use("forest-dark")
+
 # Creating root - Actual window
 root = tk.Tk()
 
@@ -49,15 +56,19 @@ a = tk.BooleanVar()
 checkbutton = ttk.Checkbutton(widget_frame, text="Employed", variable=a)
 checkbutton.grid(row=3, column=0, padx=5, pady=5, sticky="nsew")
 
+# Creating the Button widget
 button = ttk.Button(widget_frame, text="Insert")
 button.grid(row=4, column=0, padx=5, pady=5, sticky="nsew")
 
+# Creating the Separator widget
 separator = ttk.Separator(widget_frame)
 separator.grid(row=5, column=0, padx=10, pady=10, sticky="ew")
 
-mode_switch = ttk.Checkbutton(widget_frame, text="Mode", style="Switch")
+# Creating the Switch widget
+mode_switch = ttk.Checkbutton(widget_frame, text="Mode", style="Switch", command=toggle_mode)
 mode_switch.grid(row=6, column=0, padx=5, pady=10, sticky="nsew")
 
 
 # Event loop to launch the window
 root.mainloop()
+

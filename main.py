@@ -8,9 +8,43 @@ def load_data():
     path = "people.xlsx"
     workbook = xl.load_workbook(path)
     sheet = workbook.active
-    
+#   print(sheet.max_row)
     list_values = list(sheet.values)
     print(list_values)
+    for col_name in list_values[0]:
+        treeview.heading(col_name, text=col_name)
+#    treeview.heading("Name", text="Name")  
+    for value_tuple in list_values[1:]:
+        treeview.insert("", tk.END, values=value_tuple)
+    
+# Function to insert the data
+def insert_row():
+    name = name_entry.get()
+    age = int(age_spinbox.get())
+    subscription_status = status_combobox.get()
+    employment_status = "Employed" if a.get() else "Unemployed"
+    
+    print(name, age, subscription_status, employment_status)
+    
+    # Insert row into Excel Sheet
+    path = "people.xlsx"
+    workbook = xl.load_workbook(path)
+    sheet = workbook.active
+    row_values = [name, age, subscription_status, employment_status]
+    sheet.append(row_values)
+    workbook.save(path)
+    
+    # Insert row into Treeview
+    treeview.insert("", tk.END, values=row_values)
+    
+    # Clear the values
+    name_entry.delete(0, 'end')
+    name_entry.insert(0, "Name")
+    age_spinbox.delete(0, 'end')
+    age_spinbox.insert(0, "Age")
+    status_combobox.set(combo_list[0])
+    checkbutton.state(['!selected'])
+    
 
 # Function to toggle between the themes
 def toggle_mode():
@@ -67,7 +101,7 @@ checkbutton = ttk.Checkbutton(widget_frame, text="Employed", variable=a)
 checkbutton.grid(row=3, column=0, padx=5, pady=5, sticky="nsew")
 
 # Creating the Button widget
-button = ttk.Button(widget_frame, text="Insert")
+button = ttk.Button(widget_frame, text="Insert", command=insert_row)
 button.grid(row=4, column=0, padx=5, pady=5, sticky="nsew")
 
 # Creating the Separator widget

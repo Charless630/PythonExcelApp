@@ -68,6 +68,24 @@ separator.grid(row=5, column=0, padx=10, pady=10, sticky="ew")
 mode_switch = ttk.Checkbutton(widget_frame, text="Mode", style="Switch", command=toggle_mode)
 mode_switch.grid(row=6, column=0, padx=5, pady=10, sticky="nsew")
 
+# Creating the Treeview widget
+treeFrame = ttk.Frame(frame)
+treeFrame.grid(row=0, column=1, pady= 10)
+treeScroll = ttk.Scrollbar(treeFrame)
+treeScroll.pack(side="right", fill="y")
+
+# Creating the Treeview widget
+cols = ("Name", "Age", "Subscription", "Employment")
+treeview = ttk.Treeview(treeFrame, show="headings",
+                        yscrollcommand=treeScroll.set, columns=cols, height=13)
+treeview.column("Name", width=100)
+treeview.column("Age", width=50)
+treeview.column("Subscription", width=100)
+treeview.column("Employment", width=100)
+treeview.pack()
+treeScroll.config(command=treeview.yview)
+
+
 
 # Event loop to launch the window
 root.mainloop()
